@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="./login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <div class="item1">
+      <div class="welcome">
+        <h1 class="welcome-title"> WELCOME TO <span>NEWS HUB!</span></h1>
+        <p class="welcome-text">
+          Get the latest news from politics, sports, technology, health, and more — all in one place.
+        </p>
+        <p class="welcome-text">
+          Fast. Reliable. Personalized. <br />
+          <em>Your news, your way.</em>
+        </p>
+
+      </div>
+
+    </div>
+    <div class="item2">
+      <div class="form-container">
+        <h1>Register</h1>
+        <form id="registerForm">
+          <input type="text" id="regName" placeholder="Full Name" required />
+          <input type="email" id="regEmail" placeholder="Email" required />
+          <input type="password" id="regPassword" placeholder="Password" required />
+          <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required />
+          <button type="submit">Register</button>
+          <p id="registerMsg"></p>
+        </form>
+        <p style="text-align:center; margin-top:15px;">
+          Already have an account? <a href="login.html">Login here</a>
+        </p>
+        <p style="text-align: center; margin-top: 20px;" id="guest" >
+          <a href="news.html" style="color: rgb(11, 11, 73); text-decoration: underline;">
+        Continue as Guest
+      </a>
+</p>
+
+      </div>
+    </div>
+  </div>
+  <script src="./login.js"></script>
+
+</body>
+
+</html>

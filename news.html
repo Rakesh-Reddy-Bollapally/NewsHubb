@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEWS HUB</title>
+  <link rel="stylesheet" href="news.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <nav class="nav">
+    <h1 class="logo">&#x1F4F0; NEWS HUB</h1>
+    <input class="search" id="searchBox" type="search" placeholder="Press Enter to search...">
+    <button class="logout" onclick="logout()">logout</button>
+  </nav>
+  <div class="links">
+    <button onclick="fetchData('politics')">POLITICS</button>
+    <button onclick="fetchData('sports')">SPORTS</button>
+    <button onclick="fetchData('films')">FILMS</button>
+    <button onclick="fetchData('technology')">TECHNOLOGY</button>
+    <button onclick="fetchData('business')">BUSSINESS</button>
+    <button id="health" onclick="fetchData('health')">HEALTH</button>
+    <button id="local" onclick="fetchData('hyderabad')">LOCAL</button>
+    <!-- <a href="fetchData('ipl')">IPL</a> -->
+  </div>
+  <div class="container" id="container">
+
+  </div>
+
+  <div id="loading" style="display:none; text-align:center; margin:20px;">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="./news.js"></script>
+</body>
+
+</html>

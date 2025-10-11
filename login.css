@@ -1,0 +1,213 @@
+body {
+    font-family: "Winky Rough", sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-image: url("./bg.jpeg");
+    background-repeat: repeat;
+}
+
+.container {
+    height: auto;
+    margin: 50px;
+    display: flex;
+    /* flex-wrap: wrap; */
+}
+
+.item1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    width: 60%;
+    background-color: blueviolet;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+   
+    background: #EEAECA;
+    background: linear-gradient(135deg, rgb(228, 175, 198) 0%, rgba(148, 187, 233, 1) 100%);
+    
+}
+
+.item2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+    width: 40%;
+    /* background-color: cadetblue; */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(90deg, rgb(157, 157, 157) 0%, rgb(210, 207, 207) 100%);
+    background: #EEAECA;
+    background: linear-gradient(135deg, rgb(228, 175, 198) 0%, rgba(148, 187, 233, 1) 100%);
+}  
+
+
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    animation-delay: 0.5s;
+    animation: fadeSlideUp 1.5s ease-out forwards;
+    opacity: 0;
+    
+}
+
+.form-container h1 {
+    font-size: 72px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family:"Winky Rough", sans-serif; 
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+button:hover {
+    background-color: #357abd;
+}
+
+p {
+    font-size: 20px;
+    color: red;
+    margin-top: 5px;
+}
+
+.welcome {
+    color: darkgray;
+    text-align: center;
+    margin: 25px;
+    margin-top: 0px;
+}
+
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(70px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.welcome h1 {
+    font-weight: 600;
+    font-size: 72px;
+    background-image: linear-gradient(rgb(23, 22, 22), rgb(50, 46, 46));
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation-delay: 0.5s;
+    animation: fadeSlideUp 1.5s ease-out forwards;
+    opacity: 0;
+}
+
+.welcome p {
+    color: #333030;
+    font-size: 25px;
+    font-weight: 500;
+    animation-delay: 0.5s;
+    animation: fadeSlideUp 1.5s ease-out forwards;
+    opacity: 0;
+}
+#guest{
+    position: relative;
+    bottom:20px;
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        background-color: wheat;
+    }
+    .container {
+        flex-direction: column;
+        gap: 15px;
+        margin: 10px;
+    }
+    .item1, .item2 {
+        width: 100%;
+        height: auto;
+        min-height: 200px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    .form-container {
+        width: 100%;
+        padding: 15px;
+    }
+    .form-container h1,
+    .welcome h1 {
+        font-size: 32px;
+    }
+    .welcome p,
+    .form-container p {
+        font-size: 15px;
+    }
+    input, button {
+        font-size: 14px;
+        width: 90%;
+    }
+}
+/* @media screen and (min-width: 320px) and (max-width: 480px) {
+    body {
+        background-color: wheat;
+    }
+    .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .item1, .item2 {
+        
+        width: 90%;
+        height: auto;
+        flex: none;
+
+    }
+    .form-container {
+        width: 100%;
+        padding: 20px;
+    }
+        .form-container h1 {
+        font-size: 40px;
+    }
+    input{
+        width: 80%;
+    }
+
+    .welcome h1 {
+        font-size: 40px;
+    }
+
+    .welcome p {
+        font-size: 16px;
+    }
+    .container h1 {
+        font-size: 40px;
+    }
+    .container p {
+        font-size: 15px;
+    }
+} */
