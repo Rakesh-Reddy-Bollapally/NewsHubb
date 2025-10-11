@@ -8,87 +8,79 @@ let searchBox = document.getElementById('searchBox');
 let fetchData = async (search) => {
     container.innerHTML = '';
     try {
-        let data = await fetch(`${url}?q=${search}&lang=en&country=in&max=100&apikey=${api_key}`)
-        if (data.status === 403) {
-            showErrorMessage("API limit exceeded. Please try again tomorrow.");
+        loading.style.display = 'block';
+
+        // Encode the original API URL
+        const targetURL = `${url}?q=${search}&lang=en&country=in&max=100&apikey=${api_key}`;
+        const proxyURL = `https://api.allorigins.win/get?url=${encodeURIComponent(targetURL)}`;
+
+        let response = await fetch(proxyURL);
+        if (!response.ok) {
+            showErrorMessage("Server problem. Please try again later.");
+            loading.style.display = 'none';
             return;
         }
 
-        // Handle general server errors
-        if (!data.ok) {
-            showErrorMessage("Server problem. Please try again later.");
-            return;
-        }
-        // console.log(data)
-        loading.style.display = 'block';
-        let jsondata = await data.json()
-        // console.log(jsondata)
+        let proxyData = await response.json();
+        let jsondata = JSON.parse(proxyData.contents);
+
         loading.style.display = 'none';
+
         if (!jsondata.articles || jsondata.articles.length === 0) {
             showErrorMessage("No results found. Try a different search.");
             return;
         }
+
         jsondata.articles.forEach(article => {
+            let div = document.createElement("div");
+            div.style.width = "400px";
+            div.style.height = "auto";
+            div.style.border = "1px solid black";
+            div.style.borderRadius = "5px";
+            div.style.padding = "20px 0 0 0";
+            div.className = "card";
 
-            let div = document.createElement("div")
-            div.style.width = "400px"
-            div.style.maxWidth = "auto"
-            div.style.height = "auto"
-            div.style.border = "1px solid black"
-            div.style.borderRadius = "5px"
-            div.style.padding = "20px"
-            div.style.paddingLeft = "0px"
-            div.style.paddingTop = "0px"
-            div.className = "card"
-
-            let innerdiv = document.createElement("div")
-            innerdiv.style.padding = "15px"
+            let innerdiv = document.createElement("div");
+            innerdiv.style.padding = "15px";
 
             let heading = document.createElement("h1");
             heading.innerText = article.title;
-            heading.style.fontSize = "20px"
-            heading.style.fontWeight = "600"
+            heading.style.fontSize = "20px";
+            heading.style.fontWeight = "600";
             heading.style.fontFamily = "Winky Rough";
-            heading.style.marginBottom = "20px"
+            heading.style.marginBottom = "20px";
 
+            let image = document.createElement("img");
+            image.setAttribute("src", article.image || '');
+            image.style.width = "400px";
+            image.style.height = "250px";
+            image.style.marginBottom = "20px";
+            image.style.borderRadius = "5px";
+            image.className = "img";
 
-            let image = document.createElement("img")
-            // console.log(article.image)
-            image.setAttribute("src", article.image)
-            image.style.width = "400px"
-            image.style.height = "250px"
-            image.style.marginLeft = "0px"
-            image.style.marginTop = "0px"
-            image.style.marginBottom = "20px"
-            image.style.borderRadius = "5px"
-            image.className = "img"
-
-            let newslink = document.createElement("a")
-            newslink.setAttribute("href", article.url)
-            let link = newslink.getAttribute("href")
-            newslink.setAttribute("target", "_blank")
-            newslink.innerText = link
-            newslink.style.textDecoration = "None"
-            newslink.style.color = "rgb(27, 27, 116)"
+            let newslink = document.createElement("a");
+            newslink.setAttribute("href", article.url);
+            newslink.setAttribute("target", "_blank");
+            newslink.innerText = article.url;
+            newslink.style.textDecoration = "none";
+            newslink.style.color = "rgb(27, 27, 116)";
             newslink.style.fontFamily = "Winky Rough";
-            newslink.style.fontWeight = "500"
-            // newslink.style.marginTop="10px"
+            newslink.style.fontWeight = "500";
 
-            container.appendChild(div)
-            div.appendChild(image)
-            div.appendChild(innerdiv)
-            innerdiv.appendChild(heading)
-            innerdiv.appendChild(newslink)
-
+            container.appendChild(div);
+            div.appendChild(image);
+            div.appendChild(innerdiv);
+            innerdiv.appendChild(heading);
+            innerdiv.appendChild(newslink);
         });
-        // console.log(jsondata)
-
-
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        loading.style.display = 'none';
+        showErrorMessage("Network error. Please try again.");
     }
 }
+
 
 searchBox.addEventListener('keypress', async function (event) {
     if (event.key === 'Enter') {
@@ -136,5 +128,6 @@ function updatePlaceholders() {
 
 window.addEventListener("load", updatePlaceholders);
 window.addEventListener("resize", updatePlaceholders);
+
 
 
