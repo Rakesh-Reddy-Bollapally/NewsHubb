@@ -140,7 +140,7 @@ p {
 
 @media screen and (max-width: 480px) {
     body {
-        background-color: wheat;
+        background-color: black;
     }
     .container {
         flex-direction: column;
@@ -210,4 +210,5 @@ p {
     .container p {
         font-size: 15px;
     }
+
 } */
