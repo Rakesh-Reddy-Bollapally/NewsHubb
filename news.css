@@ -169,17 +169,19 @@ button:hover {
     min-width: 0;
     height: auto;
 
-    /* Border fix */
-    border: 1px solid #cbd5e1;
+    /* Visible border on all four sides */
+    border: 1.5px solid #94a3b8;
     border-radius: 8px;
 
     transition: transform 0.3s ease-in-out;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+
     background-color: rgb(254, 255, 241);
 
-    /* Prevent border clipping */
+    /* Keep the border visible */
     overflow: hidden;
     box-sizing: border-box;
+
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 .card:hover {
@@ -330,6 +332,10 @@ button:hover {
     .card {
         width: calc(50% - 10px);
         max-width: 400px;
+        min-width: 0;
+        border: 1.5px solid #94a3b8;
+        border-radius: 8px;
+        box-sizing: border-box;
     }
 
     .img {
@@ -416,7 +422,7 @@ button:hover {
         justify-content: center;
     }
 
-    /* News card border fix */
+    /* News card and border */
 
     .card {
         display: flex;
@@ -426,12 +432,14 @@ button:hover {
         min-width: 0;
         margin: 0;
 
-        border: 1px solid #cbd5e1;
+        border: 1.5px solid #94a3b8;
         border-radius: 8px;
 
         box-sizing: border-box;
         overflow: hidden;
         background-color: rgb(254, 255, 241);
+
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
     }
 
     /* Images */
@@ -445,6 +453,7 @@ button:hover {
         margin: 0;
         border: none;
         border-radius: 0;
+        box-sizing: border-box;
     }
 
     /* Headlines */
