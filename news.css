@@ -1,8 +1,27 @@
+
+/* ==============================
+   GLOBAL RESET
+============================== */
+
 * {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Winky Rough", sans-serif;
+    background-color: #f5f7fa;
+    overflow-x: hidden;
+}
+
+/* ==============================
+   NAVIGATION BAR
+============================== */
 
 .nav {
     display: flex;
@@ -10,13 +29,13 @@
     height: 100px;
     align-items: center;
     justify-content: space-around;
-    width: 100vw;
-    position: fixed; 
+    width: 100%;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000; 
+    z-index: 1000;
     box-shadow: 0 2px 10px rgba(255, 2, 2, 0.4);
-
+    padding: 0 20px;
 }
 
 .logo {
@@ -25,74 +44,63 @@
     font-family: "Winky Rough", sans-serif;
     font-weight: 500;
     font-style: normal;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .logo:hover {
     color: rgb(109, 169, 220);
 }
 
+/* ==============================
+   SEARCH INPUT
+============================== */
+
 .search {
-    width: auto;
-    height: 35px;
-    font-size: 20px;
-    font-family:"Winky Rough", sans-serif;
+    width: 300px;
+    max-width: 40%;
+    height: 40px;
+    font-size: 18px;
+    font-family: "Winky Rough", sans-serif;
     border-radius: 5px;
     padding: 10px;
+    border: 2px solid #ddd;
+    outline: none;
+    transition: border 0.3s ease;
 }
-button{
+
+.search:focus {
+    border: 2px solid rgb(109, 169, 220);
+}
+
+.search:hover {
+    border: 2px solid rgb(109, 169, 220);
+}
+
+/* ==============================
+   GENERAL BUTTONS
+============================== */
+
+button {
     cursor: pointer;
     width: 100px;
     height: 35px;
-    font-size: 20px;
-    font-family:"Winky Rough", sans-serif;
+    font-size: 18px;
+    font-family: "Winky Rough", sans-serif;
     border-radius: 5px;
     padding: 2px;
-
-}
-.search:hover{
-    border: 3px solid rgb(109,169,220);
-}
-button:hover{
-    border: 3px solid rgb(109,169,220);
-
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
 }
 
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    gap: 30px;
-    width: 100vw;
-    
-}
-.card{
-    
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 1px 1px  rgb(0, 0, 0);
-
-    background-color: rgb(254, 255, 241);
-    overflow: hidden;
-    
-
-}
-.card:hover {
-    transform: translateY(-8px);
-    /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); */
-    box-shadow: 3px 3px 10px rgb(109, 169, 220);
+button:hover {
+    border: 2px solid rgb(109, 169, 220);
 }
 
-.spinner {
-  border: 6px solid #000000; 
-  border-top: 6px solid rgb(109, 169, 220); 
-  border-bottom:6px solid red;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin: auto;
-}
+/* ==============================
+   CATEGORY LINKS
+============================== */
+
 .links {
     margin-top: 110px;
     padding: 25px;
@@ -100,17 +108,21 @@ button:hover{
     gap: 20px;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 .links button {
     cursor: pointer;
     width: 140px;
-    height: 45px;
+    min-height: 45px;
+    height: auto;
     border-radius: 30px;
     border: none;
-    background: #68aac4;
-    background: linear-gradient(90deg, rgb(183, 223, 239) 0%, rgb(169, 225, 192) 50%);
+    background: linear-gradient(
+        90deg,
+        rgb(183, 223, 239) 0%,
+        rgb(169, 225, 192) 50%
+    );
     font-size: 16px;
     font-weight: 600;
     font-family: "Winky Rough", sans-serif;
@@ -121,66 +133,347 @@ button:hover{
 }
 
 .links button:hover {
-
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     color: #111;
     border: 1px solid #555;
+    transform: translateY(-3px);
 }
 
+/* ==============================
+   NEWS CONTAINER
+============================== */
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 30px;
+    gap: 30px;
+    width: 100%;
+    padding: 20px;
+}
+
+/* ==============================
+   NEWS CARD
+============================== */
+
+.card {
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 1px 1px rgb(0, 0, 0);
+    background-color: rgb(254, 255, 241);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 3px 3px 10px rgb(109, 169, 220);
+}
+
+/* ==============================
+   NEWS IMAGE
+============================== */
+
+.img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    border-radius: 5px;
+}
+
+/* ==============================
+   NEWS TITLE
+============================== */
+
+.card h1,
+.card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Winky Rough", sans-serif;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #222;
+}
+
+/* ==============================
+   NEWS LINKS
+============================== */
+
+.card a {
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(27, 27, 116);
+    font-family: "Winky Rough", sans-serif;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+    transition: color 0.3s ease;
+}
+
+.card a:hover {
+    color: rgb(109, 169, 220);
+    text-decoration: underline;
+}
+
+/* ==============================
+   LOADING SPINNER
+============================== */
+
+.spinner {
+    border: 6px solid #000000;
+    border-top: 6px solid rgb(109, 169, 220);
+    border-bottom: 6px solid red;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 30px auto;
+}
+
+/* ==============================
+   LOADING ANIMATION
+============================== */
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px){
-    .card{
-        flex-direction: column;
-        width: 250px;
-        margin: 10px;
-        max-width :320px;
+/* ==============================
+   ERROR MESSAGES
+============================== */
 
-    }
-    .logo{
-        font-size: 20px;
+#container h2 {
+    width: 100%;
+    color: red;
+    font-family: "Winky Rough", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+    padding: 20px;
+}
 
+/* ==============================
+   LOGOUT BUTTON
+============================== */
+
+.logout {
+    cursor: pointer;
+}
+
+/* ==============================
+   TABLET RESPONSIVE
+============================== */
+
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+
+    .nav {
+        height: 80px;
+        padding: 0 15px;
     }
-    .nav{
+
+    .logo {
+        font-size: 30px;
+    }
+
+    .search {
+        width: 220px;
+        font-size: 16px;
+    }
+
+    .container {
+        margin-top: 20px;
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .card {
+        width: calc(50% - 15px);
+        max-width: 400px;
+    }
+
+    .img {
+        height: 220px;
+    }
+
+    .links {
+        margin-top: 90px;
+        gap: 15px;
+    }
+
+    .links button {
+        width: 120px;
+    }
+}
+
+/* ==============================
+   MOBILE RESPONSIVE
+============================== */
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+    .nav {
         height: 60px;
+        padding: 0 10px;
+        justify-content: space-between;
+        gap: 8px;
     }
-    .search{
-        height:30px;
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .search {
+        height: 30px;
         width: 100px;
+        max-width: 40%;
+        font-size: 10px;
+        padding: 5px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    .container {
+        margin-top: 0;
+        padding: 10px;
+        gap: 20px;
+    }
+
+    .card {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        margin: 0;
+    }
+
+    .img {
+        width: 100%;
+        max-width: 100%;
+        height: 200px;
+    }
+
+    .card h1,
+    .card h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .links {
+        margin-top: 80px;
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .links button {
+        border-radius: 25px;
+        padding: 12px;
+        width: auto;
+        min-width: 80px;
+        font-size: 14px;
+    }
+
+    #local,
+    #health {
+        visibility: hidden;
+    }
+
+    .logout {
+        width: 75px;
+        padding: 0;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border-width: 5px;
+    }
+
+    #container h2 {
+        font-size: 20px;
+    }
+}
+
+/* ==============================
+   EXTRA SMALL MOBILE
+============================== */
+
+@media screen and (max-width: 319px) {
+
+    .nav {
+        height: 55px;
+        padding: 0 5px;
+        gap: 5px;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .search {
+        width: 85px;
         font-size: 10px;
     }
-    .container{
-        margin-top: 0px;
-    }
-    .img{
-        width:250px;
-        max-width :320px;
-        
-    }
-    .links{
-        margin-top: 80px;
 
+    .container {
+        padding: 8px;
+        gap: 15px;
     }
-    .links button{
-        border-radius: 25px;
-        padding: 15px;
+
+    .card {
+        width: 100%;
+    }
+
+    .img {
+        height: 170px;
+    }
+
+    .links {
+        margin-top: 70px;
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .links button {
         width: auto;
-    }
-    #local{
-        visibility: hidden;
-    }
-    #health{
-        visibility: hidden;
-
-    }
-    .logout{
-        width: 75px;
-        padding: 0px;
-        height: 30px;
+        min-width: 65px;
+        font-size: 12px;
+        padding: 8px;
     }
 
+    .logout {
+        width: 60px;
+        font-size: 11px;
+    }
+}
+
+/* ==============================
+   LARGE DESKTOP
+============================== */
+
+@media screen and (min-width: 1440px) {
+
+    .container {
+        gap: 35px;
+        padding: 30px;
+    }
+
+    .card {
+        width: 400px;
+    }
 }
