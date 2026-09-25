@@ -81,8 +81,14 @@ async function fetchData(search) {
         });
 
     } catch (error) {
-        console.error("News fetch failed:", error);
-        showErrorMessage(error.message || "Unable to load news.");
+    console.error("Fetch error:", error);
+    console.error("Error name:", error.name);
+    console.error("Error message:", error.message);
+
+    showErrorMessage(
+        "Unable to fetch news. Check the browser console."
+    );
+}
     } finally {
         loading.style.display = "none";
     }
