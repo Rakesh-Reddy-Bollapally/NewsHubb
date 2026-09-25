@@ -1,30 +1,45 @@
-let api_key = "f1727d4336d1555a8dd2ad8b16d221d6"
-let url = "https://gnews.io/api/v4/search"
 
-let container = document.getElementById("container")
-let loading = document.getElementById('loading');
-let searchBox = document.getElementById('searchBox');
+const api_key = "61cd4d9b932740eabd416ca9d3397557";
+const url = "https://gnews.io/api/v4/search";
 
-let fetchData = async (search) => {
-    container.innerHTML = '';
+const container = document.getElementById("container");
+const loading = document.getElementById("loading");
+const searchBox = document.getElementById("searchBox");
+
+async function fetchData(search) {
+    if (!search || !search.trim()) return;
+
+    container.innerHTML = "";
+    loading.style.display = "block";
+
     try {
-        loading.style.display = 'block';
+        const params = new URLSearchParams({
+            q: search.trim(),
+            lang: "en",
+            country: "in",
+            max: "10",
+            apikey: api_key
+        });
 
-        // Encode the original API URL
-        const targetURL = `${url}?q=${search}&lang=en&country=in&max=100&apikey=${api_key}`;
-        const proxyURL = `https://api.allorigins.win/get?url=${encodeURIComponent(targetURL)}`;
+        const response = await fetch(`${url}?${params}`);
 
-        let response = await fetch(proxyURL);
         if (!response.ok) {
-            showErrorMessage("Server problem. Please try again later.");
-            loading.style.display = 'none';
-            return;
+            if (response.status === 403) {
+                throw new Error("API quota exceeded. Check your GNews usage.");
+            }
+
+            if (response.status === 401) {
+                throw new Error("Invalid API key. Check your GNews dashboard.");
+            }
+
+            if (response.status === 429) {
+                throw new Error("Too many requests. Please wait and try again.");
+            }
+
+            throw new Error(`API error: ${response.status}`);
         }
 
-        let proxyData = await response.json();
-        let jsondata = JSON.parse(proxyData.contents);
-
-        loading.style.display = 'none';
+        const jsondata = await response.json();
 
         if (!jsondata.articles || jsondata.articles.length === 0) {
             showErrorMessage("No results found. Try a different search.");
@@ -32,102 +47,83 @@ let fetchData = async (search) => {
         }
 
         jsondata.articles.forEach(article => {
-            let div = document.createElement("div");
-            div.style.width = "400px";
-            div.style.height = "auto";
-            div.style.border = "1px solid black";
-            div.style.borderRadius = "5px";
-            div.style.padding = "20px 0 0 0";
-            div.className = "card";
+            const card = document.createElement("div");
+            card.className = "card";
 
-            let innerdiv = document.createElement("div");
+            const image = document.createElement("img");
+            image.className = "img";
+            image.src = article.image || "";
+            image.alt = article.title || "News image";
+            image.loading = "lazy";
+
+            if (!article.image) {
+                image.style.display = "none";
+            }
+
+            const innerdiv = document.createElement("div");
             innerdiv.style.padding = "15px";
 
-            let heading = document.createElement("h1");
-            heading.innerText = article.title;
-            heading.style.fontSize = "20px";
-            heading.style.fontWeight = "600";
-            heading.style.fontFamily = "Winky Rough";
-            heading.style.marginBottom = "20px";
+            const heading = document.createElement("h2");
+            heading.textContent = article.title || "Untitled news";
 
-            let image = document.createElement("img");
-            image.setAttribute("src", article.image || '');
-            image.style.width = "400px";
-            image.style.height = "250px";
-            image.style.marginBottom = "20px";
-            image.style.borderRadius = "5px";
-            image.className = "img";
+            const newslink = document.createElement("a");
+            newslink.href = article.url;
+            newslink.target = "_blank";
+            newslink.rel = "noopener noreferrer";
+            newslink.textContent = "Read full article";
 
-            let newslink = document.createElement("a");
-            newslink.setAttribute("href", article.url);
-            newslink.setAttribute("target", "_blank");
-            newslink.innerText = article.url;
-            newslink.style.textDecoration = "none";
-            newslink.style.color = "rgb(27, 27, 116)";
-            newslink.style.fontFamily = "Winky Rough";
-            newslink.style.fontWeight = "500";
-
-            container.appendChild(div);
-            div.appendChild(image);
-            div.appendChild(innerdiv);
+            card.appendChild(image);
+            card.appendChild(innerdiv);
             innerdiv.appendChild(heading);
             innerdiv.appendChild(newslink);
+
+            container.appendChild(card);
         });
 
     } catch (error) {
-        console.log(error);
-        loading.style.display = 'none';
-        showErrorMessage("Network error. Please try again.");
+        console.error("News fetch failed:", error);
+        showErrorMessage(error.message || "Unable to load news.");
+    } finally {
+        loading.style.display = "none";
     }
 }
 
+function showErrorMessage(message) {
+    const msg = document.createElement("h2");
+    msg.textContent = message;
+    msg.style.color = "red";
+    msg.style.textAlign = "center";
+    container.appendChild(msg);
+}
 
-searchBox.addEventListener('keypress', async function (event) {
-    if (event.key === 'Enter') {
-        let query = searchBox.value.trim();
+searchBox.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        const query = searchBox.value.trim();
+
         if (query) {
             fetchData(query);
             searchBox.value = "";
         }
     }
-})
+});
 
-window.onload = function () {
-    fetchData("technology")
-}
+window.addEventListener("load", () => {
+    fetchData("technology");
+});
 
 function logout() {
-    // Remove the stored token
-    localStorage.removeItem('authToken'); // or sessionStorage.removeItem('authToken')
+    localStorage.removeItem("authToken");
     window.location.href = "./login.html";
 }
 
-function showErrorMessage(message) {
-    let msg = document.createElement("h2")
-    msg.innerText = message;
-    document.body.append(msg)
-    msg.style.fontFamily = "Winky Rough";
-    msg.style.fontWeight = "600"
-    msg.style.color = "red"
-    msg.style.fontSize = "40px";
-    msg.style.textAlign = "center"
-    container.appendChild(msg)
-}
-
 function updatePlaceholders() {
-    let Input = document.querySelector('input[placeholder="Press Enter to search..."]');
-    // console.log(Input)
-
-
-    if (window.innerWidth <= 768) {
-        if (Input) Input.placeholder = "Search";
-    } else {
-        if (Input) Input.placeholder = "Press Enter to search...";
+    if (searchBox) {
+        searchBox.placeholder =
+            window.innerWidth <= 768
+                ? "Search"
+                : "Press Enter to search...";
     }
 }
 
 window.addEventListener("load", updatePlaceholders);
 window.addEventListener("resize", updatePlaceholders);
-
-
-
