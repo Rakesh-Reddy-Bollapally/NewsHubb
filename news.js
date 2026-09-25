@@ -1,6 +1,7 @@
 
 const api_key = "61cd4d9b932740eabd416ca9d3397557";
-const url = "https://gnews.io/api/v4/search";
+
+const url = `https://news-api-proxy.rakeshreddybollapally.workers.dev/?q=${encodeURIComponent(query)}`;
 
 const container = document.getElementById("container");
 const loading = document.getElementById("loading");
