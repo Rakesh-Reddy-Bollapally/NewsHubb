@@ -6,6 +6,7 @@ const container = document.getElementById("container");
 const loading = document.getElementById("loading");
 const searchBox = document.getElementById("searchBox");
 
+
 async function fetchData(search) {
     if (!search || !search.trim()) return;
 
@@ -52,11 +53,12 @@ async function fetchData(search) {
 
             const image = document.createElement("img");
             image.className = "img";
-            image.src = article.image || "";
             image.alt = article.title || "News image";
             image.loading = "lazy";
 
-            if (!article.image) {
+            if (article.image) {
+                image.src = article.image;
+            } else {
                 image.style.display = "none";
             }
 
@@ -81,14 +83,14 @@ async function fetchData(search) {
         });
 
     } catch (error) {
-    console.error("Fetch error:", error);
-    console.error("Error name:", error.name);
-    console.error("Error message:", error.message);
+        console.error("Fetch error:", error);
+        console.error("Error name:", error.name);
+        console.error("Error message:", error.message);
 
-    showErrorMessage(
-        "Unable to fetch news. Check the browser console."
-    );
-}
+        showErrorMessage(
+            error.message || "Unable to fetch news. Check the browser console."
+        );
+
     } finally {
         loading.style.display = "none";
     }
